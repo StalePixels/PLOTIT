@@ -1,6 +1,8 @@
 # PLOTIT
 ## An Art Package for the ZX Spectrum Next
 
+[![PLOTIT Launch Video](http://img.youtube.com/vi/wpi9r7q6J8k/0.jpg)](http://www.youtube.com/watch?v=wpi9r7q6J8k "PLOTIT Launch Video")
+
 * PLOTIT is *NOT* supported on any current version of CSpect. Please don't ask for help if running PLOTIT in an emulated environment. 
 
 * Please do not report NON-CRASHING bugs.

@@ -11,7 +11,7 @@
 
 ## Latest Version
 ### v0.6.7 - #BlameLampros
- * Initial CSpect Support
+ * Initial *EXPERIMENTAL* CSpect Support
    * D - Write DUMP.NXI
    * R - Read DUMP.NXI
 

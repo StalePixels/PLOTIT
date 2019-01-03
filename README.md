@@ -10,6 +10,11 @@
 * Please ONLY report crashing bugs with steps to reproduce.
 
 ## Latest Version
+### v0.6.7 - #BlameLampros
+ * Initial CSpect Support
+   * D - Dump NXI
+   * R - Read DUMP.XNI
+
 ### v0.6.6 - #MerryNextMas
  * Initial Public Offering
  * No Saving of Files

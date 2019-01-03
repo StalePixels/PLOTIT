@@ -15,6 +15,7 @@
    * D - Write DUMP.NXI
    * R - Read DUMP.NXI
 
+## Previous Versions
 ### v0.6.6 - #MerryNextMas
  * Initial Public Offering
  * No Saving of Files

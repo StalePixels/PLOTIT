@@ -3,19 +3,29 @@
 
 [![PLOTIT Launch Video](http://img.youtube.com/vi/wpi9r7q6J8k/0.jpg)](http://www.youtube.com/watch?v=wpi9r7q6J8k "PLOTIT Launch Video")
 
-* PLOTIT is *NOT* supported on any current version of CSpect. Please don't ask for help if running PLOTIT in an emulated environment. 
-
 * Please do not report NON-CRASHING bugs.
 
 * Please ONLY report crashing bugs with steps to reproduce.
 
 ## Latest Version
-### v0.6.7 - #BlameLampros
- * Initial *EXPERIMENTAL* CSpect Support
-   * D - Write DUMP.NXI
-   * R - Read DUMP.NXI
+### v0.7.1 - Minimum Lovable Product
+ * Keyboard Input - Mouse now optional, but still the optimum control method
 
 ## Previous Versions
+### v0.7.0 - Minimum Lovable Product
+ * Three new tools
+   * Circle
+   * Dropper
+   * Stamps
+ * Image saving(!) 
+ * SL2 support
+ * THREE hidden easter eggs
+ * Quick Read & Write for files, enabling proper emulator use
+
+### v0.6.7 - #BlameLampros
+ * Initial *EXPERIMENTAL* CSpect Support
+ * Initial Keyboard Support
+
 ### v0.6.6 - #MerryNextMas
  * Initial Public Offering
  * No Saving of Files

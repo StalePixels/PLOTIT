@@ -8,10 +8,13 @@
 * Please ONLY report crashing bugs with steps to reproduce.
 
 ## Latest Version
-### v0.7.1 - Minimum Lovable Product
- * Keyboard Input - Mouse now optional, but still the optimum control method
+### v0.7.1 - Grew a little bit
+ * Tooltips and rewritten HUD, now fully Core v3 Compatible.
 
 ## Previous Versions
+### v0.7.1 - Minimum Lovable Product
+ * Keyboard Input - Mouse now optional, but still the optimum control method
+ 
 ### v0.7.0 - Minimum Lovable Product
  * Three new tools
    * Circle

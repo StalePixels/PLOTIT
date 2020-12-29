@@ -1,5 +1,14 @@
 # ChangeLog
 
+## v0.7.9 - Growing just a little bit
+### New Features
+ * No more Canvas Scrolling
+ * Tooltips in lower status bar
+ 
+### Bug Fixes ###
+ * Rewrote mouse driver
+
+
 ## v0.7.1 - Minimum Lovable Product
 ### New Features ###
  * Keyboard Input - Mouse now optional, but still the optimum control method. Keyboard input allows precise pixel-perfect positioning of your PLOTIT pointer, ideal when used in combination with the mouse.

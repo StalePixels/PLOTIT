@@ -1,0 +1,41 @@
+Discovered by Luzie on http://board.esxdos.org/viewtopic.php?id=69
+Documented by Alcoholics Anonymous on https://github.com/z88dk/z88dk/blob/master/libsrc/_DEVELOPMENT/target/zxn/config/config_esxdos.m4#L101
+Reproduced by Xalior for you convenience
+
+1 O.K. ESXDOS
+2 Nonsense in ESXDOS
+3 Statement END error
+4 Wrong file TYPE
+5 No such FILE or DIR
+6 I/O ERROR
+7 Invalid FILENAME
+8 Access DENIED
+9 Drive FULL
+10 Invalid I/O REQUEST
+11 No such DRIVE
+12 Too many OPEN FILES
+13 Bad file DESCRIPTOR
+14 No such DEVICE
+15 File pointer OVERFLOW
+16 Is a DIRECTORY
+17 Not a DIRECTORY
+18 File already EXISTS
+19 Invalid PATH
+20 No SYS
+21 Path too LONG
+22 No such COMMAND
+23 File in USE
+24 File is READ ONLY
+25 Verify FAILED
+26 Loading .KO FAILED
+27 Directory NOT EMPTY
+28 MAPRAM is ACTIVE
+29 Drive is BUSY
+30 Unknown FILESYSTEM
+31 Device is BUSY
+
+Additional error numbers specific to PLOTIT
+
+32 Undefined PLOTIT Error
+33 PLOTIT Plugin size Error
+34 PLOTIT Plugin header error

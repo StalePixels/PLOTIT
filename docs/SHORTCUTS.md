@@ -17,6 +17,12 @@ Movement/Mouse Control
 | CapsShift+N | Left Mouse Button (Primary Action)
 | CapsShift+M | Right Mouse Button (Secondary Action)
 
+Undo Control
+-
+|   **Key**   | **Use**
+|-------------|----
+|           u | Undo last to previous restore point
+
 File IO
 -
 

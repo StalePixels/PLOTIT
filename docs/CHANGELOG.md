@@ -1,5 +1,13 @@
 # ChangeLog
 
+## v0.8.0 - That *was* a mistake
+### New Features
+ * Undo + Redo
+ * Rewrote Pens and Pencil tools + UI
+
+### Bug Fixes ###
+ * Fixed several UI rendering issues with stamps and sidebar
+
 ## v0.7.9 - Growing just a little bit
 ### New Features
  * No more Canvas Scrolling

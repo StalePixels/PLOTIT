@@ -1,9 +1,11 @@
 # ChangeLog
 
-## v0.8.0 - That *was* a mistake
+## v0.8.A - That *was* a mistake
 ### New Features
- * Undo + Redo
- * Rewrote Pens and Pencil tools + UI
+ * Undo
+ * Rewrote Pens and Pencil tools
+ * Entirely new Menu/HUD complete  
+ * Palette Editor
 
 ### Bug Fixes ###
  * Fixed several UI rendering issues with stamps and sidebar

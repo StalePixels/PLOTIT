@@ -3,20 +3,21 @@
 
 [![PLOTIT Launch Video](http://img.youtube.com/vi/wpi9r7q6J8k/0.jpg)](http://www.youtube.com/watch?v=wpi9r7q6J8k "PLOTIT Launch Video")
 
-* Please report crashing bugs WITH steps to reproduce.
+
+* Please report crashing bugs WITH steps to reproduce [here](https://github.com/StalePixels/PLOTIT/issues)
 
 ## Latest Version
-### v0.8.A - That was a mistake (CURRENT ALPHA)
+### v0.8.0 - That *was* a mistake
+ * Undo Tool
  * Palette Editor
  * Magnify Preview
  * Settings for Magnify, Line, Box and Circle
- * Undo stack  
  * Public Plugin API
+## Previous Versions
 
-### v0.7.9 - Grew a little bit (CURRENT BETA)
+### v0.7.9 - Grew a little bit
  * Tooltips and rewritten HUD, now fully Core v3 Compatible.
 
-## Previous Versions
 ### v0.7.1 - Minimum Lovable Product
  * Keyboard Input - Mouse now optional, but still the optimum control method
  

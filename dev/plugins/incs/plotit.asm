@@ -85,8 +85,16 @@ defc _pluginEntryPoint = 0x6A73         ; uInt 8
 PUBLIC _scratchUser;
 defc _scratchUser = 0x6A74         ; uInt 8
 
+PUBLIC _dst_sfn;
+defc _dst_sfn = 0x6A75              ; char[13] (null terminated)
 
-; 0x6A75 next...
+PUBLIC _palette_flags;
+defc _palette_flags = 0x6A83   ; bitfield
+                               ; Bit:      0 1 2 3 4 5 6 7
+                               ;           |
+                               ; Modified: +
+
+; 0x6A84 - 0x61FF blank
 
 PUBLIC _paletteMemory;
 defc _paletteMemory = 0x6B00

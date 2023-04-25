@@ -2,9 +2,12 @@ PLOTIT API
 -
 
 PUBLIC MEMORY MAP
---
-Data in this area is intended to be "used" by your plugin.  
-The definition of what that use is is your choice. Remember to restore it if you change it is all!
+-
+
+See the files plotit.asm and plotit_api.h in the "incs" folder for more how
+this memory is laid out, but the data in this area is intended to be "used" by
+your plugin.  The definition of what that use is your choice. Remember to
+restore it if you change it is all!
 
 
 ENTRYPOINT TYPE BITMASKS
@@ -16,7 +19,7 @@ ENTRYPOINT TYPE BITMASKS
 |      | Plugin will execute as soon as selected (CapsJ in current dev-build)
 |  -   | 
 |  2   | Execute on Mouse Click
-|      | Menu will close immediately but plug in not execute until the next mouseclick
+|      | Menu will close immediately but plug will execute on next mouseclick
 |  -   | 
 |  3   | *reserved*
 |  -   | 
@@ -50,6 +53,3 @@ ENTRYPOINT TYPE BITMASKS
 |  7   | *reserved*
 |  -   |
 |  8   | *reserved*
-
-ENTRYPOINT TYPE BITMASKS
---

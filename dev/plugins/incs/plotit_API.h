@@ -3,86 +3,6 @@
 //
 
 
-/*
- * NOTE 0
- *      The public memory map is yours to do with as you see fit,
- *      but not without consequences.  It is best to consider all of
- *      it essential for the correct operation of PLOTIT, _outside_
- *      of your plugin, and thus - anything you change, you should put
- *      back when done.
- *
- *      You can page the public memory space in and out as you see fit,
- *      and plugins are executed with interrupts disabled for this reason
- *      although PLOTIT expects BANK5 (the public memory) back in the
- *      default location when you return control to the main app.
- *
- *      There are also certain areas of the public memory map that are
- *      used to pass either parameters to your plugin, or for hardware
- *      support, and those are listed below.
- *
- * NOTE 1
- *      The ULA screen is used exclusively by PLOTIT for tool previews.
- *      Default paper is non-bright blue, and using this will make the ULA
- *      appear transparent, allowing you to do similar FX for your plugin.
- *
- * NOTE 2
- *      PLOTIT doesn't use the system variables for itself, except when
- *      the file browser is opened - buy they are preserved intact so that
- *      your plugin has the same OS options available to it (outwith channels)
- *
- * NOTE 3
- *      The tile definitions will be placed at address 0x5c00.
- *      However the ROM source font only defines characters 32 - 127
- *      which is the printable part of the ascii set so we will
- *      only be using those tile definitions stored in addresses
- *      0x5d00 to 0x5fff --Allen
- *
- *      You can replace the tile "entities" from 0 to 31 with your own when creating
- *      custom UIs, but you should to replace the sysvars when done rendering.
- *
- * NOTE 4
- *      The Video memory is broadly split into (public) sections
- *      1) visible_screen_MMU - this is where you can draw, drawing to this is
- *          drawing to the user's canvas.
- *      2) backing_store_MMU - Backikng store used during creation of custom user
- *          interfaces - when configured plugins will be launched with a copy of
- *          the canvas already in this memory, making changes to visible_screen_MMU
- *          non distructive.  Upon exiting the UI of your plugin this memory is
- *          restored over visible_screen_MMU.  You should not draw to backing_store_MMU
- *          directly without understanding the consequences.
- *      3) scratch_screen_MMU - 48k of usable as an SD load cache, or area of creating
- *          custom effects, blit space, etc.  Also can be used as extra scratch data
- *          for your plugin, if required.   Cannot be relied up to be in the same state
- *          as left between plugin executions.  You can write to this as required, there
- *          is no need to back up data before changing it.
- *      The structures of memory in this area is as follows:
- *          Byte 00:    reserved
- *          Byte 01:    reserved
- *          Byte 02:    MMU Bank number, top 16k
- *          Byte 03:    MMU Bank number, middle 16k
- *          Byte 04:    MMU Bank number, bottom 16k
- *          Byte 05:    MMU Bank number, calling bank when using zxnext_layer2 api (deprecated - do not use)
- *
- * NOTE 5
- *      undo_screen_MMU is the state of the previous undo step - this permits you to perform related effects between
- *      an image, and the previous state, in a plugin if required.  Etiquette says "don't edit this" in case the user
- *      ever wants to actually "undo" to it, it's part of the live "undo stack" memory.
- *
- * NOTE 6
- *      The builtin tools use two kinds of shared memory
- *      1) Tool Registers - 8 total, 16bit unsigned integers to allow tools to pass data outside of their own bank
- *          to your plugin
- *      2) Tool Memory    - 16 total, 16bit unsigned integers used to allow tools to pass persistent memory (e.g.
- *          last used brush) settings outside their bank/change tool defaults at startup.  (currently only 9/16 of
- *          the memory locations are used)
- *
- * NOTE 7
- *      The mouse is stored in a number of "precompued" forms, since it's used in many places like this - it
- *      speeds up the app to cache the sums - here are the versions found here:
- *          mouseX, mouseY              uInt16          raw coorddinate data
- *          canvasX, canvasY            uInt8           data precalcuated to fit within 48K L2 bounds
- */
-
 #include <stdint.h>
 #include <stdbool.h>
 #include "zxnext_layer2.h"
@@ -164,13 +84,15 @@
 #define TOOL_STAMP              0x08
 #define TOOL_NOTREADY           0x09
 
+#define PALETTE_FLAG_MODIFIED   0x01
+
 //#define DEFAULT_DEBOUNCE_MS  400
 #define DEFAULT_DEBOUNCE_FRAMES  10
 
 #define DEFAULT_UNDO_LEVELS     6
 
 ///////////////////////////////
-// PUBLIC MEMORY MAP (NOTE 0)
+// PUBLIC MEMORY MAP (See NOTE 0)
 ///////////////////////////////
 /*
  * 0x4000 ULA Display File
@@ -203,11 +125,16 @@
  * 0x6A72 _pluginActiveID
  * 0x6A73 _pluginEntryPoint
  * 0x6A74 _scratchUser;
+ * 0x6175 _dst_sfn;
+ * 0x6183 _palette_flags;               NOTE 8:
  *
+ * 0x6B00 _paletteMemory
+ * 0x6D00 _buf_256
+ * 0x6E00
  *
  */
 
-// Mostly here as a conceptual hack
+// Mostly here as a conceptual hack / example on how memory addressing works
 extern uint8_t __ula_display[32][192];
 extern uint8_t __ula_attributes[32][24];
 
@@ -240,6 +167,8 @@ extern int16_t toolRegisters[8];
 
 // And what the current tool is
 extern uint8_t activeTool;
+// Flag for special handling if action was via menu
+extern uint8_t activatedFromMenu;
 
 // User Input - Mouse
 extern uint8_t mouseBtns;
@@ -281,9 +210,9 @@ extern uint8_t pluginEntryPoint;
 // -- backing the scratch memory up to SD isn't forced, but if you don't, make sure you change the scratchUser ID on exit
 // so other plugins can tell you've changed it.
 // You should leave your own pluginActiveID in this memory location _if_ you have left data here after your plugin
-// has finished running -- but be warned, this it's an honour system.  This is probably best used for
-// "start up code" or loading extra assets/binaries into, you can save repeated startup time if the 'cache' is "yours".
-// And not important/irreplacable state data.
+// has finished running -- but be warned, this it's an honour system - bad plugins may never update this upon execution.
+// This is probably best used for "start up code" or loading extra assets/binaries into, you can save repeated startup
+// time if the 'cache' is "yours" and not important/irreplacable state data.
 extern uint8_t scratchUser;
 
 // The currently active pallete as last uploaded into the L2 hardware - here for easy reference, do not edit
@@ -292,6 +221,96 @@ extern uint16_t paletteMemory[256];
 // Simple 0.25K buffer, used for file ops, UI &  stamp management - you can use it for your plugin, if desired
 extern uint8_t buf_256[256];
 
+//  Short file name for the currently active/open document
+extern unsigned char dst_sfn[13];
 
+// Palette flags - metadata about current palette state, see NOTE 8
+extern unsigned char palette_flags;
+
+
+/*
+ * NOTE 0
+ *      The public memory map is yours to do with as you see fit,
+ *      but not without consequences.  It is best to consider all of
+ *      it essential for the correct operation of PLOTIT, _outside_
+ *      of your plugin, and thus - anything you change, you should put
+ *      back when done.
+ *
+ *      You can page the public memory space in and out as you see fit,
+ *      and plugins are executed with interrupts disabled for this reason
+ *      although PLOTIT expects BANK5 (the public memory) back in the
+ *      default location when you return control to the main app.
+ *
+ *      There are also certain areas of the public memory map that are
+ *      used to pass either parameters to your plugin, or for hardware
+ *      support, and those are listed below.
+ *
+ * NOTE 1
+ *      The ULA screen is used exclusively by PLOTIT for tool previews.
+ *      Default paper is non-bright blue, and using this will make the ULA
+ *      appear transparent, allowing you to do similar FX for your plugin.
+ *
+ * NOTE 2
+ *      PLOTIT doesn't use the system variables for itself, except when
+ *      the file browser is opened - buy they are preserved intact so that
+ *      your plugin has the same OS options available to it (outwith channels)
+ *
+ * NOTE 3
+ *      The tile definitions will be placed at address 0x5c00.
+ *      However the ROM source font only defines characters 32 - 127
+ *      which is the printable part of the ascii set so we will
+ *      only be using those tile definitions stored in addresses
+ *      0x5d00 to 0x5fff --Allen
+ *
+ *      You can replace the tile "entities" from 0 to 31 with your own when creating
+ *      custom UIs, but you should to replace the sysvars when done rendering.
+ *
+ * NOTE 4
+ *      The Video memory is broadly split into (public) sections
+ *      1) visible_screen_MMU - this is where you can draw, drawing to this is
+ *          drawing to the user's canvas.
+ *      2) backing_store_MMU - Backing store used during creation of custom user
+ *          interfaces - when configured plugins will be launched with a copy of
+ *          the canvas already in this memory, making changes to visible_screen_MMU
+ *          non-destructive.  Upon exiting the UI of your plugin this memory is
+ *          restored over visible_screen_MMU.  You should not draw to backing_store_MMU
+ *          directly without understanding the consequences.
+ *      3) scratch_screen_MMU - 48k "blank", use as an SD load cache, or area of creating
+ *          custom effects, blit space, etc.  Also can be used as extra scratch data
+ *          for your plugin, if required.   Cannot be relied on up to be in the same state
+ *          as left between plugin executions.  You can write to this as required, there
+ *          is no need to back up data before changing it.
+ *      The structures of memory in this area is as follows:
+ *          Byte 00:    reserved
+ *          Byte 01:    reserved
+ *          Byte 02:    MMU Bank number, top 16k
+ *          Byte 03:    MMU Bank number, middle 16k
+ *          Byte 04:    MMU Bank number, bottom 16k
+ *          Byte 05:    MMU Bank number, calling bank when using zxnext_layer2 api (deprecated - do not use)
+ *
+ * NOTE 5
+ *      undo_screen_MMU is the state of the previous undo step - this permits you to perform related effects between
+ *      an image, and the previous state, in a plugin if required.  Etiquette says "don't edit this" in case the user
+ *      ever wants to actually "undo" to it, it's part of the live "undo stack" memory.
+ *
+ * NOTE 6
+ *      The builtin tools use two kinds of shared memory
+ *      1) Tool Registers - 8 total, 16bit unsigned integers to allow tools to pass data outside of their own bank
+ *          to your plugin
+ *      2) Tool Memory    - 16 total, 16bit unsigned integers used to allow tools to pass persistent memory (e.g.
+ *          last used brush) settings outside their bank/change tool defaults at startup.  (currently only 9/16 of
+ *          the memory locations are used)
+ *
+ * NOTE 7
+ *      The mouse is stored in a number of "precomputed" forms, since it's used in many places like this - it
+ *      speeds up the app to cache the sums - here are the versions found here:
+ *          mouseX, mouseY              uInt16          raw coorddinate data
+ *          canvasX, canvasY            uInt8           data precalcuated to fit within 48K L2 bounds
+ *
+ * NOTE 8
+ *      The Palette Flags memory is a bit-field packed series of flags, currently implemented ones are
+ *          Bit 0:           Is palette "modified" from hardware default?
+ *
+ */
 
 #endif //PLOTIT_API_H

@@ -1,30 +1,53 @@
 # ChangeLog
 
-## v0.8.A - That *was* a mistake
+PLOTIT is a full-featured image editor, developed across multiple years.
+
+## Controls
+PLOTIT is designed to be controlled by a mouse, it also has keyboard shortcuts
+which may help speed up some workflows or certain kinds of detail work.
+
+|   **Key**   | **Use**
+|-------------|----
+|           q | Move mousepointer up one pixel
+|           a | Move mousepointer down one pixel
+|           o | Move mousepointer left one pixel
+|           p | Move mousepointer right one pixel
+| CapsShift+Q | Move mousepointer up eight pixels
+| CapsShift+A | Move mousepointer down eight pixel
+| CapsShift+O | Move mousepointer left eight pixel
+| CapsShift+P | Move mousepointer right eight pixel
+|           n | Left Mouse Button (Primary Action)
+|           m | Right Mouse Button (Secondary Action)
+
+The keyboard controls are intended as a suppliment to the mouse, and never as
+a total replacement for the mouse - therefore there's likely many features and
+functions that you can only do with the mouse.
+
+## v0.8.0 - That *was* a mistake
 ### New Features
  * Undo
  * Rewrote Pens and Pencil tools
- * Entirely new Menu/HUD complete  
+ * Entirely new Menu/HUD complete
  * Palette Editor
-
+ * Preview when zoomed in
+ * Beta Plugin API
 ### Bug Fixes ###
  * Fixed several UI rendering issues with stamps and sidebar
+ * Better handling when switching from config mode to editor modes
 
 ## v0.7.9 - Growing just a little bit
 ### New Features
  * No more Canvas Scrolling
  * Tooltips in lower status bar
- 
 ### Bug Fixes ###
  * Rewrote mouse driver
-
 
 ## v0.7.1 - Minimum Lovable Product
 ### New Features ###
  * Keyboard Input - Mouse now optional, but still the optimum control method. Keyboard input allows precise pixel-perfect positioning of your PLOTIT pointer, ideal when used in combination with the mouse.
 ### Bug Fixes ###
  * Speed ups and Overflow fixes on Fill tool
- 
+
 ## v0.7.0 - Minimum Lovable Product
 ### New Features ###
  * Stand Alone .nex - only the demos used in the "Rogue's Gallery" external to the main app

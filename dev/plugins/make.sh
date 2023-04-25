@@ -29,7 +29,7 @@
 #      6
 #      7
 #      8
-#   See dev/docs/api.md for more details
+#   See dev/docs/api.txt for more details
 
 ## A Shell script to turn a .BIN file into a .PLP file
 #

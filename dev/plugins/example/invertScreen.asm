@@ -51,7 +51,7 @@ LoopInner:	    ld a,(hl)                   ; load the pixel into the accumulator
                 pop bc                      ; and as to serve as a boilerplate new plugin authors
                 pop de                      ; can use and built upon
                 pop hl                      ;
-                exx                         ; Andand, just like above, all the registers... :)
+                exx                         ; Andand, just like above, include the shadow registers.
                 pop iy                      ;
                 pop ix                      ;
                 pop af                      ;

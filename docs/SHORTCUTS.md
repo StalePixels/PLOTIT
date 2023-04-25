@@ -22,11 +22,3 @@ Undo Control
 |   **Key**   | **Use**
 |-------------|----
 |           u | Undo last to previous restore point
-
-File IO
--
-
-|   **Key**   | **Use** 
-|-------------|----
-| CapsShift+R | Read "DUMP.NXI" from current folder
-| CapsShift+W | Write "DUMP.NXI" to current folder

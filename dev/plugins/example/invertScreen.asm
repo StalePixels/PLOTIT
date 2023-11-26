@@ -6,7 +6,7 @@
 ;           will result in a "bank.bin", exactly 16k in size
 ;           this file is suitable for use with make.sh for adding headers;
 ;
-;               -Dx 2012/01/08
+;               -Dx 2021/01/08
 
                 DEVICE ZXSPECTRUMNEXT
                 ORG $c000

@@ -23,17 +23,22 @@ The keyboard controls are intended as a suppliment to the mouse, and never as
 a total replacement for the mouse - therefore there's likely many features and
 functions that you can only do with the mouse.
 
+## v0.8.1 - That *was* a mistake
+### Bug Fixes ###
+* Fixed a bug that would only occur if you'd not disabled the autoexec-welcome.bas message. (I know, mad right...) Thanks to Paul Smallman for finding it, the reproduction video, and starting me on the right tracks.
+* Fix a bug where some PLUGIN related code was executed when in LITE mode
+
 ## v0.8.0 - That *was* a mistake
 ### New Features
- * Undo
- * Rewrote Pens and Pencil tools
- * Entirely new Menu/HUD complete
- * Palette Editor
- * Preview when zoomed in
- * Beta Plugin API
+* Undo
+* Rewrote Pens and Pencil tools
+* Entirely new Menu/HUD complete
+* Palette Editor
+* Preview when zoomed in
+* Beta Plugin API
 ### Bug Fixes ###
- * Fixed several UI rendering issues with stamps and sidebar
- * Better handling when switching from config mode to editor modes
+* Fixed several UI rendering issues with stamps and sidebar
+* Better handling when switching from config mode to editor modes
 
 ## v0.7.9 - Growing just a little bit
 ### New Features

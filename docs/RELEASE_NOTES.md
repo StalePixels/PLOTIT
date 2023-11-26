@@ -1,5 +1,8 @@
 # Release Notes
 
+## v0.8.1 - That *was* a mistake
+Fixed a mega-bug that would only occur if you'd not disabled the autoexec-welcome.bas message. (I know, mad right...) Thanks to Paul Smallman for finding it, the reproduction video, and starting me on the right tracks.
+
 ## v0.8.0 - That was a mistake
 Huge refactor here, lots of new features and almost all of the UI code has been reworked in some way.  Make sure to check out Undo, and plugins!
 You can now write your own plugins in your assembler of choice if your needs aren't quite met, basic documentation and API details are included!

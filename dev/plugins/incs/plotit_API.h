@@ -163,7 +163,7 @@ extern uint8_t fgColor, bgColor;
 extern uint8_t plotit_core_state;
 
 // 32bytes of space reserved for tools to operate on when running so they can pass settings to other memory areas
-extern int16_t toolRegisters[8];
+extern int16_t toolRegisters[16];
 
 // And what the current tool is
 extern uint8_t activeTool;
